@@ -72,7 +72,7 @@ while True:
         pygame.draw.rect(screen, (0, 0, 0), (width / 2 - 5, dashLine, 10, 20))
     # if the ball is to far to the left then do something like say a discoraging and negative message 
     if ballx > width or ballx < 0:
-        tExT = "You Lose. Hahaha you are bad at this. press space to restart."
+        tExT = "You Lose. Hahaha you are bad at this. Press space to restart."
         lost = True
         textsurface = myfont.render(tExT, False, (112, 255, 119))
         textWidth, textHeight = myfont.size(tExT)
@@ -83,5 +83,3 @@ while True:
 # Install git (git-scm.com)
 # Add any features that you saw that you might like in your version
     # Score
-# Challenge: restart the game
-# Optional: play pong online
