@@ -13,7 +13,10 @@ bally = height / 2
 ballySpeed = 0
 ballxSpeed = -7
 
-myfont = pygame.font.SysFont('Comic Sans MS', 30)
+scoreFont = pygame.font.SysFont('Comic Sans MS', 65)
+loseFont = pygame.font.SysFont('Comic Sans MS', 30)
+p1Score = 0
+p2Score = 0
 
 lost = False
 
@@ -56,26 +59,37 @@ while True:
         if bally >= paddle1 and bally <= paddle1 + 150:
             if 40 + 25 - abs(ballxSpeed) <= ballx <= 40 + 25:
                 ballxSpeed *= -1
+                p1Score += 1
                 if ballySpeed == 0:
                     ballySpeed += 7
     if ballx > width / 2:
         if bally >= paddle2 and bally <= paddle2 + 150:
             if width - 40 - 25 + ballxSpeed >= ballx >= width - 40 - 25:
                 ballxSpeed *= -1
+                p2Score += 1
+
 
     screen.fill((255, 255, 255))
 
+    textsurface = scoreFont.render(str(p1Score), False, (112, 255, 119))
+    screen.blit(textsurface, (width / 10, height / 7))
+    
+    textsurface = scoreFont.render(str(p2Score), False, (112, 255, 119))
+    scoreWith, scoreHeight = scoreFont.size(str(p2Score))
+    screen.blit(textsurface, (width - width / 10 - scoreWith, height / 7))
+    
     pygame.draw.rect(screen, (104, 198, 252), (30, paddle1, 10, 150))
     pygame.draw.rect(screen, (104, 198, 252), (width - 40, paddle2, 10, 150))
     pygame.draw.circle(screen, (255, 145, 0), (ballx, bally), 25)
+
     for dashLine in range(0, height, 40):
         pygame.draw.rect(screen, (0, 0, 0), (width / 2 - 5, dashLine, 10, 20))
     # if the ball is to far to the left then do something like say a discoraging and negative message 
     if ballx > width or ballx < 0:
         tExT = "You Lose. Hahaha you are bad at this. Press space to restart."
         lost = True
-        textsurface = myfont.render(tExT, False, (112, 255, 119))
-        textWidth, textHeight = myfont.size(tExT)
+        textsurface = loseFont.render(tExT, False, (112, 255, 119))
+        textWidth, textHeight = loseFont.size(tExT)
 
         screen.blit(textsurface, (width / 2 - textWidth / 2, height / 2 - textHeight / 2))
     pygame.display.flip()
